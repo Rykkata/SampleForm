@@ -3,5 +3,5 @@ export type FormValues = {
     samplemean: number;
     standarddeviation: number;
     hypothesischeckbox?: boolean;
-    hypthesizedmean?: number;
+    hypothesizedmean?: number;
 }

@@ -4,7 +4,14 @@ import { Form, FormSpy } from 'react-final-form';
 
 // Material-UI Imports
 import Button from '@material-ui/core/Button';
+import Paper from '@mui/material/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import Typography from '@material-ui/core/Typography';
 
 import CheckBox from './components/CheckBox';
@@ -63,6 +70,7 @@ export default function App() {
   const [formData, setFormData] = useState<FormValues | null>(null);
   const [initialValues, setInitialValues] = useState<FormValues | null>(null);
   const [isHypothetical, setIsHypothetical] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   useEffect((): void => {
     getDefaultValues({ cancelToken: cancelToken.current.token, setInitialValues });
@@ -78,8 +86,7 @@ export default function App() {
         initialValues={initialValues}
         onSubmit={(values): void => {
           setFormData(values as FormValues);
-          console.log(values);
-          console.log(formData);
+          setSubmitted(true);
         }}
         subscription={{ }}
       >
@@ -147,7 +154,10 @@ export default function App() {
                 color='secondary'
                 disabled={pristine}
                 id='form-reset-button'
-                onClick={(): void =>  form.restart()}
+                onClick={(): void =>  {
+                  form.restart();
+                  setSubmitted(false);
+                }}
                 tabIndex={-1}
                 type='reset'
                 variant='outlined'
@@ -159,6 +169,29 @@ export default function App() {
         </form>
       )}
       </Form>
+      { submitted ? 
+      <TableContainer component={Paper}>
+        <Table aria-label='Submission'>
+          <TableBody>
+            <TableRow>
+              <TableCell>Sample Size</TableCell>
+              <TableCell align='right'>{formData?.samplesize}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Sample Mean</TableCell>
+              <TableCell align='right'>{formData?.samplemean}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Standard Deviation</TableCell>
+              <TableCell align='right'>{formData?.standarddeviation}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Hypothesized Mean</TableCell>
+              <TableCell align='right'>{formData?.hypothesizedmean}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer> : null }
     </Fragment>
   );
 }
