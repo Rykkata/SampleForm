@@ -1,5 +1,5 @@
 export default function validNumber<T>({ value }: {
-    value: T;
+    value: string;
   }): boolean {
-    return (typeof(value) === 'number');
+    return (!isNaN(Number(value)));
   }
