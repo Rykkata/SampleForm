@@ -1,0 +1,11 @@
+SHELL := /bin/bash
+ipaddr := $(shell ip addr | grep 'state UP' -A2 | tail -n1 | cut -d'/' -f1 | cut -d' ' -f6)
+
+client:
+	@cd client && npm install && npm start
+
+mockserver:
+	@cd client && json-server --watch db.json --port 3004
+
+run:
+	mockserver client
