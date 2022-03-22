@@ -29,6 +29,23 @@ const useStyles = makeStyles(() => ({
     margin: '5px',
     verticalAlign: 'top',
   },
+  formRow: {
+    margin: '5px',
+    verticalAlign: 'top',
+    width: '75vh',
+  },
+  left: {
+    display: 'inline-block',
+    margin: 'auto',
+    width: '50%',
+    verticalAlign: 'middle',
+  },
+  right: {
+    display: 'inline-block',
+    margin: 'auto',
+    width: '50%',
+    verticalAlign: 'middle',
+  },
 }));
 
 function validateSampleSize(value: string): string | null {
@@ -95,29 +112,41 @@ export default function App() {
           onSubmit={handleSubmit}
           id='sample-form'
         >
-          <div> 
-            <Typography display="inline">Sample Size:</Typography>
-            <TextField 
-              label=''
-              name='samplesize'
-              validate={validateSampleSize}
-            />
+          <div className={styles.formRow}> 
+            <div className={styles.left}>
+              <Typography display="inline">Sample Size:</Typography>
+            </div>
+            <div className={styles.right}>
+              <TextField 
+                label=''
+                name='samplesize'
+                validate={validateSampleSize}
+              />
+            </div>
           </div>
-          <div>
-          <Typography display="inline">Sample Mean:</Typography>
-          <TextField 
-              label=''
-              name='samplemean'
-              validate={validateNumber}
-            />
+          <div className={styles.formRow}> 
+            <div className={styles.left}>
+              <Typography display="inline">Sample Mean:</Typography>
+            </div>
+            <div className={styles.right}>
+              <TextField 
+                  label=''
+                  name='samplemean'
+                  validate={validateNumber}
+                />
+            </div>
           </div>
-          <div>
-          <Typography display="inline">Standard Deviation:</Typography>
-          <TextField 
-              label=''
-              name='standarddeviation'
-              validate={validateStandardDeviation}
-            />
+          <div className={styles.formRow}>
+            <div className={styles.left}>
+              <Typography display="inline">Standard Deviation:</Typography>
+            </div>
+            <div className={styles.right}>
+              <TextField 
+                  label=''
+                  name='standarddeviation'
+                  validate={validateStandardDeviation}
+              />
+            </div>
           </div>
           <div>
           <CheckBox 
@@ -128,13 +157,19 @@ export default function App() {
               setIsHypothetical(evt.target.checked);
             }}
           />
-          <Typography display="inline">Hypothesized mean:</Typography>
-          <TextField 
-            disabled={!isHypothetical}
-            label=''
-            name='hypothesizedmean'
-            validate={validateHypothesis}
-          />
+          <div className={styles.formRow}> 
+            <div className={styles.left}>
+              <Typography display="inline">Hypothesized mean:</Typography>
+            </div>
+            <div className={styles.right}>
+              <TextField 
+                disabled={!isHypothetical}
+                label=''
+                name='hypothesizedmean'
+                validate={validateHypothesis}
+              />
+            </div>
+          </div>
           </div>
           <Button
             className={styles.button}
