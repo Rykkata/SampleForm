@@ -1,0 +1,7 @@
+{
+  "initial_data": {
+      "samplesize": 10,
+      "samplemean": 2.5,
+      "standarddeviation": 0.1
+  }
+}
